@@ -104,7 +104,7 @@ main .say { font-family: var(--f-body); font-weight: 600; }
   position: fixed; inset: 0; z-index: 50; background: #000;
   display: grid; place-items: end center; overflow: hidden;
 }
-.scare svg { width: min(140vw, 1100px); max-width: none; height: auto; display: block; }
+.scare svg { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: min(140vw, 1100px); max-width: none; height: auto; display: block; }
 .scare.go { animation: shake .45s linear 2; }
 .scare.go .rise { animation: rise .14s cubic-bezier(.2,.9,.2,1) forwards; }
 .scare .rise { transform: translateY(70%); }
