@@ -128,10 +128,6 @@ main .say { font-family: var(--f-body); font-weight: 600; }
 
 <div class="bar" role="region" aria-label="Reading settings">
   <span class="clock" id="clock">5:20 PM</span>
-  <div class="toggles">
-    <button class="toggle" id="t-scare" type="button" aria-pressed="true">Jump scare: on</button>
-    <button class="toggle" id="t-sound" type="button" aria-pressed="false">Sound: off</button>
-  </div>
 </div>
 
 <header>
@@ -255,22 +251,13 @@ main .say { font-family: var(--f-body); font-weight: 600; }
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const tScare = $("t-scare"), tSound = $("t-sound"), scare = $("scare");
-  let scareOn = true, soundOn = false, fired = false, ctx = null;
-
-  try { if (localStorage.getItem("scare") === "off") scareOn = false; } catch (e) {}
-  const paint = () => {
-    tScare.setAttribute("aria-pressed", scareOn); tScare.textContent = "Jump scare: " + (scareOn ? "on" : "off");
-    tSound.setAttribute("aria-pressed", soundOn); tSound.textContent = "Sound: " + (soundOn ? "on" : "off");
-  };
-  paint();
-  tScare.onclick = () => { scareOn = !scareOn; try { localStorage.setItem("scare", scareOn ? "on" : "off"); } catch (e) {} paint(); };
-  tSound.onclick = () => {
-    soundOn = !soundOn;
-    if (soundOn && !ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { soundOn = false; } }
+  const scare = $("scare");
+  let scareOn = true, soundOn = true, fired = false, ctx = null;
+  const unlock = () => {
+    if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { soundOn = false; } }
     if (ctx && ctx.state === "suspended") ctx.resume();
-    paint();
   };
+  ["pointerdown", "keydown", "touchend"].forEach(ev => addEventListener(ev, unlock, { passive: true }));
 
   // clock: starts at 5:20 PM and creeps forward as you read
   const clock = $("clock");
