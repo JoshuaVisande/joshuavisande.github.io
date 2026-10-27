@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Silhouette Behind My Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;800;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: one narrow reading column in a dark office; the only light is the monitor's glow. Single dark look by choice. */
+:root {
+  --night: #07090c;
+  --desk: #10141a;
+  --glow: #d4e4f1;
+  --ink: #aeb8c2;
+  --dim: #5e6975;
+  --line: #1c232c;
+  --eye: #f3f7fb;
+  --f-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+img, svg { max-width: 100%; }
+html { background: var(--night); }
+body {
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 19px;
+  line-height: 1.7;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 96px;
+  margin: 0;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(ellipse 70% 55% at 50% 30%, transparent 40%, rgba(0,0,0,.65) 100%);
+}
+
+/* control bar */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between;
+  max-width: 680px; margin: 0 auto; padding-block: 12px;
+  background: linear-gradient(var(--night) 70%, transparent);
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim);
+}
+.bar .clock { color: var(--glow); font-variant-numeric: tabular-nums; }
+.toggles { display: flex; gap: 8px; flex-wrap: wrap; }
+.toggle {
+  font: inherit; color: var(--ink); background: transparent; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 3px; padding: 6px 10px;
+}
+.toggle[aria-pressed="true"] { color: var(--night); background: var(--glow); border-color: var(--glow); }
+.toggle:focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
+
+/* hero */
+header { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; padding-block: 24px 8px; text-align: left; }
+.scene { width: 100%; max-width: 100%; display: block; margin: 0 auto 28px; }
+.scene .head { transform-origin: 300px 150px; animation: sway 9s ease-in-out infinite; }
+@keyframes sway { 0%,100% { transform: translateX(0) } 50% { transform: translateX(2px) } }
+.screen { animation: hum 6s steps(1) infinite; }
+@keyframes hum { 0%,93%,100% { opacity: 1 } 94% { opacity: .82 } 96% { opacity: .95 } }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); margin: 0 0 10px; }
+h1 {
+  font-family: var(--f-display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(44px, 11vw, 92px); line-height: .9; letter-spacing: .01em;
+  color: var(--glow); margin: 0; text-wrap: balance;
+  text-shadow: 0 0 28px rgba(212,228,241,.18);
+}
+.sub { font-style: italic; color: var(--dim); margin: 14px 0 0; }
+
+/* story */
+main { position: relative; z-index: 2; max-width: 620px; margin: 40px auto 0; }
+main p { margin: 0 0 1.05em; }
+main .beat { color: var(--dim); font-style: italic; }
+main q, main .say { color: var(--glow); }
+main .say { font-family: var(--f-body); font-weight: 600; }
+.stamp { font-family: var(--f-mono); font-size: 13px; letter-spacing: .1em; color: var(--glow); }
+.turn { margin-block: 1.6em !important; }
+.wala {
+  font-family: var(--f-display); font-weight: 900; font-size: clamp(64px, 18vw, 140px);
+  line-height: .9; color: var(--glow); letter-spacing: .02em; margin: .4em 0 .3em !important;
+}
+.wala.flick { animation: flick 1.4s steps(1) 1; }
+@keyframes flick { 0%{opacity:1} 8%{opacity:0} 14%{opacity:1} 22%{opacity:.1} 30%{opacity:1} 60%{opacity:.6} 64%{opacity:1} }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 2.4em 0; }
+.ceb { font-style: italic; }
+.final { color: var(--glow); }
+.end {
+  font-family: var(--f-display); font-weight: 800; text-transform: uppercase; letter-spacing: .3em;
+  font-size: 22px; color: var(--dim); margin-top: 3em !important; text-align: center;
+}
+.replay { display: flex; justify-content: center; margin-top: 18px; }
+.replay button { font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+
+/* jump scare */
+.scare {
+  position: fixed; inset: 0; z-index: 50; background: #000;
+  display: grid; place-items: end center; overflow: hidden;
+}
+.scare svg { width: min(140vw, 1100px); max-width: none; height: auto; display: block; }
+.scare.go { animation: shake .45s linear 2; }
+.scare.go .rise { animation: rise .14s cubic-bezier(.2,.9,.2,1) forwards; }
+.scare .rise { transform: translateY(70%); }
+.scare.out { animation: fadeout .7s ease forwards; }
+@keyframes rise { to { transform: translateY(0) } }
+@keyframes shake {
+  0%,100% { transform: translate(0,0) } 20% { transform: translate(-14px,8px) } 40% { transform: translate(12px,-10px) }
+  60% { transform: translate(-8px,-6px) } 80% { transform: translate(10px,6px) }
+}
+@keyframes fadeout { to { opacity: 0 } }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene .head, .screen, .wala.flick { animation: none; }
+  .scare.go { animation: none; }
+  .scare.go .rise { animation-duration: .01s; }
+}
+@media (max-width: 480px) { body { font-size: 18px; } }
+</style>
+</head>
+<body>
+
+<div class="bar" role="region" aria-label="Reading settings">
+  <span class="clock" id="clock">5:20 PM</span>
+  <div class="toggles">
+    <button class="toggle" id="t-scare" type="button" aria-pressed="true">Jump scare: on</button>
+    <button class="toggle" id="t-sound" type="button" aria-pressed="false">Sound: off</button>
+  </div>
+</div>
+
+<header>
+  <svg class="scene" viewBox="0 0 600 340" role="img" aria-label="A dark silhouette of a head rising above the back of a glowing computer monitor">
+    <defs>
+      <radialGradient id="g" cx="50%" cy="55%" r="65%">
+        <stop offset="0" stop-color="#d4e4f1" stop-opacity=".28"/>
+        <stop offset="1" stop-color="#d4e4f1" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="600" height="340" fill="#07090c"/>
+    <ellipse cx="300" cy="200" rx="300" ry="170" fill="url(#g)"/>
+    <g class="head" fill="#020304">
+      <ellipse cx="300" cy="92" rx="38" ry="46"/>
+      <path d="M272 128 Q300 150 328 128 L334 150 L266 150 Z"/>
+      <path d="M190 172 Q206 140 262 140 L338 140 Q394 140 410 172 Z"/>
+    </g>
+    <rect x="160" y="128" width="280" height="168" rx="6" fill="#151b22"/>
+    <rect class="screen" x="170" y="138" width="260" height="148" rx="2" fill="#c6d8e7"/>
+    <rect x="170" y="138" width="260" height="148" rx="2" fill="#07090c" opacity=".12"/>
+    <rect x="186" y="156" width="120" height="6" fill="#8aa0b3" opacity=".7"/>
+    <rect x="186" y="170" width="190" height="6" fill="#8aa0b3" opacity=".5"/>
+    <rect x="186" y="184" width="160" height="6" fill="#8aa0b3" opacity=".5"/>
+    <rect x="186" y="198" width="80" height="6" fill="#8aa0b3" opacity=".5"/>
+    <rect x="282" y="296" width="36" height="22" fill="#151b22"/>
+    <rect x="240" y="316" width="120" height="8" rx="2" fill="#151b22"/>
+    <rect x="0" y="322" width="600" height="18" fill="#10141a"/>
+  </svg>
+  <p class="eyebrow">Based on a true story</p>
+  <h1>The Silhouette Behind My Monitor</h1>
+  <p class="sub">Read it alone, with the lights off.</p>
+</header>
+
+<main id="story">
+  <p><span class="stamp">5:20 PM.</span> It was around 5:20 PM on a regular working day. I was alone in the office, and the lights were off. The whole place was quiet, with only the faint hum of the computers breaking the silence.</p>
+  <p>I was sitting at my desk, doing my usual work, when I noticed something across my table.</p>
+  <p>Behind my monitor, I saw what looked like the silhouette of a person standing directly in front of me.</p>
+  <p>At first, I thought it was one of my coworkers.</p>
+  <p>So, without thinking too much about it, I casually called out.</p>
+  <p class="say" lang="ceb">“Uy!”</p>
+  <p class="beat">No response.</p>
+  <p>I looked at the silhouette again.</p>
+  <p class="say" lang="ceb">“Uy, unsa man ka diha?”</p>
+  <p class="beat">Still nothing.</p>
+  <p>I started getting a little annoyed, thinking maybe my coworker was just standing there, trying to get my attention or messing around with me.</p>
+  <p>So I called out again.</p>
+  <p class="say" lang="ceb">“Uy, nag-unsay man ka diha? Ngano hilom man ka?”</p>
+  <p class="beat">Nothing.</p>
+  <p>The figure remained behind my monitor.</p>
+  <p>That's when I decided to stand up and take a proper look.</p>
+  <p>But the moment I started rising from my chair, something happened that made my entire body freeze.</p>
+  <p class="turn final">The silhouette went down.</p>
+  <p>It moved at exactly the same time I did.</p>
+  <p>As I stood up, it lowered itself behind my monitor, as if it was deliberately trying to hide from me.</p>
+  <p>I stopped moving.</p>
+  <p>For a few seconds, I just stared at the space behind my screen.</p>
+  <p class="say" lang="ceb">“Unsa man ni oy?”</p>
+  <p>I tried to convince myself that it was just a coworker crouching behind the table. Maybe someone was picking something up. Maybe there was a reasonable explanation.</p>
+  <p>But why wasn't the person answering me?</p>
+  <p>And why did it move the moment I stood up?</p>
+  <p>I slowly moved toward the end of the aisle and leaned over to see who was there.</p>
+  <p>I was expecting to find one of my coworkers hiding behind the table.</p>
+  <p>But when I looked—</p>
+  <p class="wala" id="wala" lang="ceb">WALA.</p>
+  <p>There was nobody there.</p>
+  <p>The entire aisle was empty.</p>
+  <p>I looked around, trying to find anyone who could have been standing behind my monitor just seconds ago.</p>
+  <p class="beat">Nobody.</p>
+  <p>No footsteps. No movement. No one walking away.</p>
+  <p class="beat">Nothing.</p>
+  <p>I swear, the silhouette had been right in front of me.</p>
+  <p>I had spoken to it.</p>
+  <p>And I had watched it move.</p>
+  <p>My heart started racing. I didn't even bother checking behind the other tables anymore.</p>
+  <p>I immediately rushed to the light switch and turned on all the lights.</p>
+  <p>The entire office lit up.</p>
+  <p>I looked back at my table, at the monitor, and at the aisle where I had seen the silhouette.</p>
+  <p>Everything looked normal.</p>
+  <p>But I wasn't staying there to find out anything else.</p>
+  <p>I rushed back to my desk, grabbed my things, and packed everything as quickly as I could.</p>
+  <p>I didn't care that my shift wasn't over yet.</p>
+  <p>I didn't care if someone questioned why I was leaving early.</p>
+  <p class="ceb" lang="ceb">Gusto na gyud ko mouli. Dili na ko ganahan magdugay didto.</p>
+  <p>I left the office as quickly as possible.</p>
+
+  <hr class="rule">
+
+  <p>Even after I got home, I kept thinking about what had happened.</p>
+  <p>Maybe my eyes had played tricks on me because the office was dark.</p>
+  <p>Maybe there was some explanation I hadn't considered.</p>
+  <p>But there's one thing I still can't get out of my head.</p>
+  <p>When I called out, the silhouette didn't respond.</p>
+  <p>When I stood up, it went down.</p>
+  <p>And when I finally checked the aisle…</p>
+  <p class="ceb final" lang="ceb">Walay tawo.</p>
+  <p class="ceb" lang="ceb">Hangtod karon, wala gihapon ko kahibalo kung unsa gyud to akong nakita niadtong adlawa.</p>
+  <p class="ceb" lang="ceb">Pero usa ra gyud akong nahibaw-an.</p>
+  <p class="ceb" lang="ceb">Pag-abot sa alas 5:20 sa hapon, abi nako ako ra ang nahibilin sa opisina.</p>
+  <p class="ceb final" lang="ceb" id="last">Ambot lang kung ako ba gyud ang nag-inusara.</p>
+
+  <p class="end">The End.</p>
+  <div class="replay"><button class="toggle" id="replay" type="button">Look behind the monitor again</button></div>
+</main>
+
+<div class="scare" id="scare" hidden aria-hidden="true">
+  <svg viewBox="0 0 1000 700">
+    <g class="rise">
+      <ellipse cx="500" cy="300" rx="190" ry="235" fill="#020304"/>
+      <path d="M150 700 Q190 520 360 500 L640 500 Q810 520 850 700 Z" fill="#020304"/>
+      <path d="M410 500 Q500 560 590 500 L600 540 L400 540 Z" fill="#020304"/>
+      <ellipse cx="430" cy="290" rx="20" ry="9" fill="#f3f7fb"/>
+      <ellipse cx="570" cy="290" rx="20" ry="9" fill="#f3f7fb"/>
+      <circle cx="432" cy="290" r="4" fill="#020304"/>
+      <circle cx="568" cy="290" r="4" fill="#020304"/>
+    </g>
+    <rect x="0" y="600" width="1000" height="100" fill="#151b22"/>
+    <rect x="0" y="596" width="1000" height="6" fill="#c6d8e7" opacity=".5"/>
+  </svg>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const tScare = $("t-scare"), tSound = $("t-sound"), scare = $("scare");
+  let scareOn = true, soundOn = false, fired = false, ctx = null;
+
+  try { if (localStorage.getItem("scare") === "off") scareOn = false; } catch (e) {}
+  const paint = () => {
+    tScare.setAttribute("aria-pressed", scareOn); tScare.textContent = "Jump scare: " + (scareOn ? "on" : "off");
+    tSound.setAttribute("aria-pressed", soundOn); tSound.textContent = "Sound: " + (soundOn ? "on" : "off");
+  };
+  paint();
+  tScare.onclick = () => { scareOn = !scareOn; try { localStorage.setItem("scare", scareOn ? "on" : "off"); } catch (e) {} paint(); };
+  tSound.onclick = () => {
+    soundOn = !soundOn;
+    if (soundOn && !ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { soundOn = false; } }
+    if (ctx && ctx.state === "suspended") ctx.resume();
+    paint();
+  };
+
+  // clock: starts at 5:20 PM and creeps forward as you read
+  const clock = $("clock");
+  const tick = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const frac = max > 0 ? Math.min(1, scrollY / max) : 0;
+    const m = 20 + Math.round(frac * 13);
+    clock.textContent = "5:" + String(m).padStart(2, "0") + " PM";
+  };
+  addEventListener("scroll", tick, { passive: true });
+
+  function scream() {
+    if (!soundOn || !ctx) return;
+    const t = ctx.currentTime, out = ctx.createGain();
+    out.gain.setValueAtTime(0.0001, t);
+    out.gain.exponentialRampToValueAtTime(0.9, t + 0.02);
+    out.gain.exponentialRampToValueAtTime(0.0001, t + 1.3);
+    out.connect(ctx.destination);
+    const len = ctx.sampleRate * 1.3, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const n = ctx.createBufferSource(); n.buffer = buf;
+    const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1800; bp.Q.value = 0.8;
+    n.connect(bp); bp.connect(out); n.start(t);
+    [0, 7, 13].forEach(det => {
+      const o = ctx.createOscillator(); o.type = "sawtooth";
+      o.frequency.setValueAtTime(900 + det * 10, t);
+      o.frequency.exponentialRampToValueAtTime(140 + det, t + 1.2);
+      const g = ctx.createGain(); g.gain.value = 0.25;
+      o.connect(g); g.connect(out); o.start(t); o.stop(t + 1.3);
+    });
+  }
+
+  function jump() {
+    if (!scareOn) return;
+    scare.hidden = false; scare.classList.remove("go", "out");
+    void scare.offsetWidth;
+    scare.classList.add("go"); scream();
+    setTimeout(() => scare.classList.add("out"), 1200);
+    setTimeout(() => { scare.hidden = true; scare.classList.remove("go", "out"); }, 1950);
+  }
+  scare.onclick = () => { scare.hidden = true; };
+  $("replay").onclick = () => { const was = scareOn; scareOn = true; jump(); scareOn = was; };
+
+  if ("IntersectionObserver" in window) {
+    const wala = $("wala");
+    new IntersectionObserver((es, ob) => {
+      if (es[0].isIntersecting) { wala.classList.add("flick"); ob.disconnect(); }
+    }, { threshold: 1 }).observe(wala);
+    new IntersectionObserver((es, ob) => {
+      if (es[0].isIntersecting && !fired) { fired = true; ob.disconnect(); setTimeout(jump, 1600); }
+    }, { rootMargin: "0px 0px -30% 0px" }).observe($("last"));
+  }
+})();
+</script>
+</body>
+</html>
